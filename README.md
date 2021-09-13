@@ -134,3 +134,12 @@ const adjustableRateFHAApr = computeApr({
 ```
 
 Given a fairly complete description of a loan returns the APR (Annual Percentage Rate) for the loan. Because mortgages already have their interest rates expressed as an annual rate APR for mortgages takes into account additional fees that are paid to the lender (`totalFees`) and any mortgage insurance that is paid. The APR attempts to reflect the "true cost" of a mortgage by accounting for the future value of any money spent up-front. Additionally for adjustable rate loans the APR accounts for estimated adjustments based on a fully indexed rate.
+
+### formatCurrency
+```ts
+import { formatCurrency } from '@ownup/fin-lib';
+
+const formatted = formatCurrency(1_000, false, 2);
+```
+
+Given a number and two optional flags (should this function return negative numbers, how many decimal points to return.) returns a string formatted for US dollars.
