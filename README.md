@@ -104,3 +104,33 @@ const scheduleWithMortgageInsurance = computeFHAMip({
 ```
 
 Given a pre-computed amortization schedule adds monthly mortgage insurance premiums to the schedule following the FHA rules. This will return an array matching the one from computeAmortizationSchedule with an additional `mortgageInsurance` data point representing the monthly mortgage insurance payment due. The upFrontMip amount given to this function is an amount of mortgage insurance premium that is paid upfront and included in the balance of the loan.
+
+### computeApr
+```ts
+import { computeApr, computeFHAMip } from '@ownup/fin-lib';
+
+const fixedRateApr = computeApr({
+  initialRate: 3.125,
+  presentValue: 400_000,
+  loanTerm: 30,
+  totalFees: 4_000,
+  propertyValue: 500_000,
+  mortgageInsurance: 0
+});
+
+const adjustableRateFHAApr = computeApr({
+  initialRate: 3.125,
+  presentValue: 400_000,
+  fullyIndexedRate: 4.25,
+  loanTerm: 30,
+  fixedTerm: 7,
+  adjustmentPeriod: 1
+  caps: { initial: 2, periodic: 2, lifetime: 5 },
+  totalFees: 4_000,
+  propertyValue: 500_000,
+  mortgageInsurance: 150,
+  upFrontMip: 1_000,
+}, computeFHAMip);
+```
+
+Given a fairly complete description of a loan returns the APR (Annual Percentage Rate) for the loan. Because mortgages already have their interest rates expressed as an annual rate APR for mortgages takes into account additional fees that are paid to the lender (`totalFees`) and any mortgage insurance that is paid. The APR attempts to reflect the "true cost" of a mortgage by accounting for the future value of any money spent up-front. Additionally for adjustable rate loans the APR accounts for estimated adjustments based on a fully indexed rate.
