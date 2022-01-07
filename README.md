@@ -67,3 +67,40 @@ Computes a monthly amortization schedule for the given fixed or adjustable loan.
 - `balanceAtEndOfMonth`: The principal balance remaining at the end of  the month.
 
 In the case of adjustable rate loans that loan will adjust towards the fully indexed rate after the fixed term, based on the adjustment period and bounded by the caps. After an adjustment a new monthly payment to reach a zero balance will be computed and principal and interest payments will adjust accordingly.
+
+### computePMI
+```ts
+import { computePMI } from '@ownup/fin-lib';
+
+const amortizationSchedule = computeAmortizationSchedule({
+  initialRate: 3.125,
+  presentValue: 400_000,
+  loanTerm: 30
+});
+
+const scheduleWithMortgageInsurance = computePMI({
+  propertyValue: 500_000,
+  mortgageInsurance: 150,
+}, amortizationSchedule);
+```
+
+Given a pre-computed amortization schedule adds monthly mortgage insurance premiums to the schedule following the standard rules for PMI. This will return an array matching the one from computeAmortizationSchedule with an additional `mortgageInsurance` data point representing the monthly mortgage insurance payment due.
+
+### computeFHAMIP
+```ts
+import { computeFHAMIP } from '@ownup/fin-lib';
+
+const amortizationSchedule = computeAmortizationSchedule({
+  initialRate: 3.125,
+  presentValue: 400_000,
+  loanTerm: 30
+});
+
+const scheduleWithMortgageInsurance = computeFHAMIP({
+  propertyValue: 500_000,
+  mortgageInsurance: 150,
+  upFrontMip: 1_000
+}, amortizationSchedule);
+```
+
+Given a pre-computed amortization schedule adds monthly mortgage insurance premiums to the schedule following the FHA rules. This will return an array matching the one from computeAmortizationSchedule with an additional `mortgageInsurance` data point representing the monthly mortgage insurance payment due. The upFrontMip amount given to this function is an amount of mortgage insurance premium that is paid upfront and included in the balance of the loan.
