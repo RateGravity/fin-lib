@@ -135,6 +135,49 @@ const adjustableRateFHAApr = computeApr({
 
 Given a fairly complete description of a loan returns the APR (Annual Percentage Rate) for the loan. Because mortgages already have their interest rates expressed as an annual rate APR for mortgages takes into account additional fees that are paid to the lender (`totalFees`) and any mortgage insurance that is paid. The APR attempts to reflect the "true cost" of a mortgage by accounting for the future value of any money spent up-front. Additionally for adjustable rate loans the APR accounts for estimated adjustments based on a fully indexed rate.
 
+### computeTotalCost
+```ts
+import { computeTotalCost } from '@ownup/fin-lib';
+
+const totalCost = computeTotalCost({
+  initialRate: 3.125,
+  presentValue: 400_000,
+  loanTerm: 30,
+  totalFees: 4_000,
+  propertyValue: 500_000,
+  mortgageInsurance: 0
+});
+```
+
+Given a fairly complete description of a loan return the total interest, fees, and mortgage insurance that will be paid over the life of the loan. When making a monthly payment on a loan a part of the monthly payment goes towards interest and a part goes towards paying the pinciple or balance of the loan. The payment towards the balance of the loan becomes equity in the house so is excluded from this computation.
+
+### computeBreakEven
+```ts
+import { computeBreakEven } from '@ownup/fin-lib';
+
+const loanA = {
+  initialRate: 3.125,
+  presentValue: 400_000,
+  loanTerm: 30,
+  totalFees: 4_000,
+  propertyValue: 500_000,
+  mortgageInsurance: 0
+};
+
+const loanB = {
+  initialRate: 3.25,
+  presentValue: 400_000,
+  loanTerm: 30,
+  totalFees: 3_000,
+  propertyValue: 500_000,
+  mortgageInsurance: 0
+};
+
+const breakEven = computeBreakEven(loanA, loanB);
+```
+
+Given 2 fairly complete descriptions of loans determine the "breakeven" point when it makes more sense to have one loan over the other. Often loans trade-off higher up-front cost with lower monthly cost in the form of a lower rate. One way to understand the implication of this tradeoff is with the breakeven calculation which find the point in which the lowered monthly costs recoups the higher up-front costs. This calculation examines the cost-to-date of a loan factoring in interest, fees, and mortgage insurance and balances it against the equity that is in the home. The equity in the home is an important consideration since many loans such as ones with longer terms, or ones in which some of the up-front costs are financed may seem objectively better on paper but actually leave the home owner with less equity in the home throughout the loan.
+
 ### formatCurrency
 ```ts
 import { formatCurrency } from '@ownup/fin-lib';
