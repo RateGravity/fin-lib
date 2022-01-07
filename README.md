@@ -186,3 +186,9 @@ const formatted = formatCurrency(1_000, false, 2);
 ```
 
 Given a number and two optional flags (should this function return negative numbers, how many decimal points to return.) returns a string formatted for US dollars.
+
+## A note on precision / accuracy
+This entire library is built using the standard javascript number types which suffer from precision loss after repeated operations. As such the numbers that are produced from this library should be considered "rough" numbers that are good enough for most mortgage calculators but not sufficient for CFPB mandated disclosures. All efforts have been made to have the functions in this library represent a correct understanding of mortgage financing practices and regulations, however no warranty is implied by this library and Own Up will not be held liable for any losses that are incurred as a result of using this library.
+
+## Contributing
+We welcome contributions in the form of bug fixes and new features. In the case of bug fixes we ask that you please provide a test case demonstrating the bug as well as the fix. In the case of the new features we ask that the feature include documentation in both TSDoc and the README.md file, as well as comprehensive test cases.
