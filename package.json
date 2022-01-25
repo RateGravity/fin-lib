@@ -8,6 +8,11 @@
   "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
   "author": "Own Up <dev@ownup.com>",
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "postbuild:test": "jest --config ./jest-postbuild.config.js",
     "postbuild:typecheck": "tsc --noEmit ./lib/index.d.ts",
