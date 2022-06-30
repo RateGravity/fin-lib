@@ -1,0 +1,11 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "name": "fin-lib API",
+    "plugin": [ "typedoc-plugin-markdown" ],
+    "hideBreadcrumbs": true,
+    "readme": "none",
+    "entryPoints": ["./src/index.ts"],
+    "tsconfig": "./tsconfig.json",
+    "out": "docsDist/reference/fin-lib-api/"
+}
+
