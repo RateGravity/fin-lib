@@ -1,3 +1,4 @@
+export * from './affordability';
 export * from './amortization';
 export * from './apr';
 export * from './format-currency';
