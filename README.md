@@ -187,7 +187,7 @@ const input = {
   initialRate: 3.25,
   loanTerm: 30,
   targetMonthlyPayment: 2_500,
-  costModels: {
+  costs: {
     taxes: createTaxModels(downPayment),
     pmi: createPmiModels(downPayment),
     condoFee: [{

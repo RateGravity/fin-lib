@@ -1,4 +1,5 @@
 import { MonthlyRateDecimal, MonthsPerYear } from './constants';
+import { CostModel } from './cost-models';
 import { PMT } from './math';
 
 export interface ComputeMonthlyPaymentInputs {
@@ -20,4 +21,23 @@ export function computeMonthlyPayment({
   loanTerm
 }: ComputeMonthlyPaymentInputs): number {
   return PMT(initialRate / MonthlyRateDecimal, loanTerm * MonthsPerYear, presentValue, 0);
+}
+
+export type CreatePAndICostModelInputs = Omit<ComputeMonthlyPaymentInputs, 'presentValue'>;
+
+export function createPAndICostModel({
+  initialRate,
+  loanTerm
+}: CreatePAndICostModelInputs): CostModel[] {
+  const rate = initialRate / MonthlyRateDecimal;
+  const rExp = Math.pow(1 + rate, loanTerm * MonthsPerYear);
+
+  return [
+    {
+      presentValueFactor: (rate * rExp) / (rExp - 1), // Compounding Interest factor
+      costOffset: 0,
+      minPresentValue: Number.NEGATIVE_INFINITY,
+      maxPresentValue: Number.POSITIVE_INFINITY
+    }
+  ];
 }
