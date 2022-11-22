@@ -1,3 +1,4 @@
+export * from './affordability';
 export * from './amortization';
 export * from './apr';
 export * from './format-currency';
@@ -6,3 +7,4 @@ export * from './mi';
 export * from './payments';
 export * from './total-cost';
 export * from './break-even';
+export * from './cost-models';

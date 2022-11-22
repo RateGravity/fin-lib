@@ -178,6 +178,33 @@ const breakEven = computeBreakEven(loanA, loanB);
 
 Given 2 fairly complete descriptions of loans determine the "breakeven" point when it makes more sense to have one loan over the other. Often loans trade-off higher up-front cost with lower monthly cost in the form of a lower rate. One way to understand the implication of this tradeoff is with the breakeven calculation which find the point in which the lowered monthly costs recoups the higher up-front costs. This calculation examines the cost-to-date of a loan factoring in interest, fees, and mortgage insurance and balances it against the equity that is in the home. The equity in the home is an important consideration since many loans such as ones with longer terms, or ones in which some of the up-front costs are financed may seem objectively better on paper but actually leave the home owner with less equity in the home throughout the loan.
 
+### computeAffordability
+```ts
+import { computeAffordability } from '@ownup/fin-lib';
+
+const downPayment = 50_000;
+const input = {
+  initialRate: 3.25,
+  loanTerm: 30,
+  targetMonthlyPayment: 2_500,
+  costs: {
+    taxes: createTaxModels(downPayment),
+    pmi: createPmiModels(downPayment),
+    condoFee: [{
+      costOffset: 150,
+      presentValueFactor: 0,
+      minPresentValue: Number.NEGATIVE_INFINITY,
+      maxPresentValue: Number.POSITIVE_INFINITY
+    }] // fixed cost condo fee
+  }
+}
+
+const { presentValue, costs } = computeAffordability(input);
+```
+
+Given a loan term and rate and a set of additional monthly cost models return the maximum presentValue of the loan that will have a total monthly payment
+less than or equal to the targetMonthlyPayment amount. Additionally return the discreet monthly costs for a loan of that size including the pAndI. 
+
 ### formatCurrency
 ```ts
 import { formatCurrency } from '@ownup/fin-lib';
