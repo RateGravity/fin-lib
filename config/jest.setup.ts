@@ -1,3 +1,5 @@
+import '@babel/polyfill';
+
 /**
  * This function will automatically be executed prior to the jest tooling
  *   being initialized. See: https://jestjs.io/docs/configuration#globalsetup-string

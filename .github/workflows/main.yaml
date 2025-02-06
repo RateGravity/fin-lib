@@ -1,0 +1,35 @@
+name: Push/Pull Request on main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  checks: write # -- Allows us to pass or fail a check
+  pull-requests: write # -- Allows us to post PR annotations
+
+jobs:
+  RunStaticAnalysisAndUnitTests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Type check
+        run: yarn type-check
+
+      - name: Unit Tests
+        run: yarn test --ci --max-workers 100%
