@@ -108,3 +108,12 @@ lib/
 
 #build scratch directory
 build/
+
+# yarn 2 - No Zero Installs
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

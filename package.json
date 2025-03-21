@@ -13,6 +13,7 @@
     "LICENSE",
     "README.md"
   ],
+  "packageManager": "yarn@4.7.0",
   "scripts": {
     "postbuild:test": "jest --config ./jest-postbuild.config.js",
     "postbuild:typecheck": "tsc --noEmit ./lib/index.d.ts",
