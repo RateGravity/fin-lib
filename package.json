@@ -1,6 +1,6 @@
 {
   "name": "@ownup/fin-lib",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Mortgage math and other financial calculations",
   "repository": "https://github.com/RateGravity/fin-lib.git",
   "license": "MIT",
