@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Mortgage math and other financial calculations",
   "repository": "https://github.com/RateGravity/fin-lib.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
